@@ -1,0 +1,16 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "Kate's web crawler",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/katesheldon18/kates-crawler",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
