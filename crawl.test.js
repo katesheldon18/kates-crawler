@@ -1,5 +1,5 @@
-//Imports the 'normalizeURL' function from our crawl.js file:
-const { normalizeURL } = require("./crawl.js");
+//Imports our functions from our crawl.js file so we can test them:
+const { normalizeURL, getURLsFromHTML } = require("./crawl.js");
 
 //Imports the 'test' and 'expect' functions from Jest:
 const { test, expect } = require("@jest/globals");
@@ -28,5 +28,39 @@ test("normalizeURL strip trailing slash", () => {
   const input = "https://blog.boot.dev/path/";
   const actual = normalizeURL(input);
   const expected = "blog.boot.dev/path";
+  expect(actual).toEqual(expected);
+});
+
+//Test to make sure the function gets the href from the HTML and appends it to our array:
+test("getURLsFromHTML absolute", () => {
+  const inputHTMLBody = `
+  <html>
+    <body>
+      <a href="https://blog.boot.dev/">
+        Boot.dev Blog 
+      </a>
+    </body>
+  </html>
+  `;
+  const inputBaseURL = "https://blog.boot.dev";
+  const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL);
+  const expected = ["https://blog.boot.dev/"];
+  expect(actual).toEqual(expected);
+});
+
+//Testing as above, but to also include relative URL paths as well as absolute paths:
+test("getURLsFromHTML relative", () => {
+  const inputHTMLBody = `
+  <html>
+    <body>
+      <a href="/path/">
+        Boot.dev Blog 
+      </a>
+    </body>
+  </html>
+  `;
+  const inputBaseURL = "https://blog.boot.dev";
+  const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL);
+  const expected = ["https://blog.boot.dev/path/"];
   expect(actual).toEqual(expected);
 });
