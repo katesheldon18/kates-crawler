@@ -64,3 +64,43 @@ test("getURLsFromHTML relative", () => {
   const expected = ["https://blog.boot.dev/path/"];
   expect(actual).toEqual(expected);
 });
+
+//Testing for when there are multiple URLs in the HTML, using BOTH relative & absolute paths:
+test("getURLsFromHTML both", () => {
+  const inputHTMLBody = `
+  <html>
+    <body>
+      <a href="https://blog.boot.dev/path1/">
+        Boot.dev Blog Path One
+      </a>
+      <a href="/path2/">
+        Boot.dev Blog Path Two
+      </a>
+    </body>
+  </html>
+  `;
+  const inputBaseURL = "https://blog.boot.dev";
+  const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL);
+  const expected = [
+    "https://blog.boot.dev/path1/",
+    "https://blog.boot.dev/path2/",
+  ];
+  expect(actual).toEqual(expected);
+});
+
+//Test to deal with invalid URLs:
+test("getURLsFromHTML invalid", () => {
+  const inputHTMLBody = `
+  <html>
+    <body>
+      <a href="invalid">
+        Invalid URL 
+      </a>
+    </body>
+  </html>
+  `;
+  const inputBaseURL = "https://blog.boot.dev";
+  const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL);
+  const expected = [];
+  expect(actual).toEqual(expected);
+});
