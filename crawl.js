@@ -2,14 +2,52 @@
 const { JSDOM } = require("jsdom");
 
 //3rd function: an async function, to take in a current URL then makes a fetch request to that URL (the resp part), to get back the HTML
-async function crawlPage(currentURL) {
+//Update to the crawlPage function: take 3 arguments. baseURL, currentURL, and pages object. To crawl a full site. 'pages' keeps track of all crawled pages.
+async function crawlPage(baseURL, currentURL, pages) {
+  //Making sure we only crawl on our desired root domain, no external links:
+  const baseURLObj = new URL(baseURL);
+  const currentURLObj = new URL(currentURL);
+  if (baseURLObj.hostname !== currentURLObj.hostname) {
+    return pages;
+  }
+
+  //Checking if we already crawled this page, and if so, increment the count so we can measure number of internal links:
+  const normalizedCurrentURL = normalizeURL(currentURL);
+  if (pages[normalizedCurrentURL] > 0) {
+    pages[normalizedCurrentURL]++;
+    return pages;
+  }
+
+  pages[normalizedCurrentURL] = 1;
+
   console.log(`Actively crawling ${currentURL}`);
+
   try {
     const resp = await fetch(currentURL);
-    console.log(await resp.text());
+    if (resp.status > 399) {
+      console.log(`Status code ${resp.status} on page ${currentURL}`);
+      return pages;
+    }
+    const contentType = resp.headers.get("content-type");
+    if (!contentType.includes("text/html")) {
+      console.log(
+        `Non-HTML response: ${contentType} on page ${currentURL}`
+      );
+      return pages;
+    }
+    const htmlBody = await resp.text();
+    //Extract the links from the HTML:
+    const nextURLs = getURLsFromHTML(htmlBody, baseURL);
+
+    //Recursively crawl all the links, and update our pages object:
+    //Recursive function means it crawls itself
+    for (const nextURL of nextURLs) {
+      pages = await crawlPage(baseURL, nextURL, pages);
+    }
   } catch (err) {
-    console.log(`Error in fetch: ${err.message}, on page: ${currentURL}`)
+    console.log(`Error in fetch: ${err.message}, on page: ${currentURL}`);
   }
+  return pages;
 }
 
 //Function to find URLs in the HTML of a page, and return an array of strings representing these URLs.

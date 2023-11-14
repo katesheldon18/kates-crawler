@@ -4,7 +4,7 @@ const { crawlPage } = require('./crawl.js');
 //baseURL refers to the 3rd argument (therefore index[2] which is the URL we provide in the command line)
 //The function ends with crawlPage (calling that function from our crawl.js file)
 
-function main() {
+async function main() {
   if (process.argv.length < 3) {
     console.log("No URL provided");
     process.exit(1);
@@ -17,7 +17,12 @@ function main() {
   const baseURL = process.argv[2];
 
   console.log(`Starting crawl of ${baseURL}`);
-  crawlPage(baseURL)
+  //Starting with baseURL, baseURL which is the current URL, and an empty pages object:
+  const pages = await crawlPage(baseURL, baseURL, {})
+
+  for (const page of Object.entries(pages)){
+    console.log(page)
+  }
 }
 
 main();
