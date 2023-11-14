@@ -1,6 +1,17 @@
 //So we can use the JSDOM package:
 const { JSDOM } = require("jsdom");
 
+//3rd function: an async function, to take in a current URL then makes a fetch request to that URL (the resp part), to get back the HTML
+async function crawlPage(currentURL) {
+  console.log(`Actively crawling ${currentURL}`);
+  try {
+    const resp = await fetch(currentURL);
+    console.log(await resp.text());
+  } catch (err) {
+    console.log(`Error in fetch: ${err.message}, on page: ${currentURL}`)
+  }
+}
+
 //Function to find URLs in the HTML of a page, and return an array of strings representing these URLs.
 function getURLsFromHTML(htmlBody, baseURL) {
   const urls = [];
@@ -44,4 +55,5 @@ function normalizeURL(urlString) {
 module.exports = {
   normalizeURL,
   getURLsFromHTML,
+  crawlPage,
 };
