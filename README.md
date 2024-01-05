@@ -1,4 +1,4 @@
-Instructions: to start the crawl use 'npm start https:www.examplewebsite.com' and the crawl will begin. URLs will log in the terminal as the crawl goes.
+Instructions: to start the crawl use 'npm start https://www.examplewebsite.com' and the crawl will begin. URLs will log in the terminal as the crawl goes.
 
 
 For this project I created a link-to-link web crawler using Node.js with the help of a tutorial on youtube. This involved:
