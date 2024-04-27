@@ -14,7 +14,14 @@ export default function Page() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         ></input>
-        <button className={styles.buttonStart}>START CRAWL</button>
+        <button
+          className={styles.buttonStart}
+          onClick={() => {
+            fetch(`/api/sitemap?url=${url}`);
+          }}
+        >
+          START CRAWL
+        </button>
         <div>LOADING...</div>
       </div>
       <div className={styles.controlsContainer}>

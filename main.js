@@ -5,17 +5,7 @@ const { printReport } = require("./report.js");
 //baseURL refers to the 3rd argument (therefore index[2] which is the URL we provide in the command line)
 //The function ends with crawlPage (calling that function from our crawl.js file)
 
-async function main() {
-  if (process.argv.length < 3) {
-    console.log("No URL provided");
-    process.exit(1);
-  }
-
-  if (process.argv.length > 3) {
-    console.log("Too many command line arguments provided");
-    process.exit(1);
-  }
-  const baseURL = process.argv[2];
+async function main(baseURL) {
 
   console.log(`Starting crawl of ${baseURL}`);
   //Starting with baseURL, baseURL which is the current URL, and an empty pages object:
@@ -26,4 +16,6 @@ async function main() {
   // }
 }
 
-main();
+module.exports = {
+  main
+};
