@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <div className={styles.container}>
       <div className={styles.startCrawlContainer}>
-        <div className={styles.logo}>LOGO</div>
+        <div className={styles.logo}>🤖</div>
         <input
           className={styles.urlInput}
           placeholder="https://www.example.com..."
