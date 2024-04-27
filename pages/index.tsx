@@ -1,6 +1,9 @@
 import styles from "./index.module.scss";
+import { useState } from "react";
+import React from "react";
 
 export default function Page() {
+  const [url, setUrl] = useState("");
   return (
     <div className={styles.container}>
       <div className={styles.startCrawlContainer}>
@@ -8,6 +11,8 @@ export default function Page() {
         <input
           className={styles.urlInput}
           placeholder="https://www.example.com..."
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
         ></input>
         <button className={styles.buttonStart}>START CRAWL</button>
         <div>LOADING...</div>
