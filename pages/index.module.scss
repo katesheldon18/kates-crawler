@@ -3,13 +3,41 @@
     src: url("./fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf");
 }
 
+
+// VARIABLES //
+
+$color-primary: #668ba4;
+$color-secondary: #97cba9;
+$color-bg: #feffed;
+$color-placeholder: #dbdbdb;
+
+
+// MIXINS //
+
+@mixin button {
+    font-family: 'Roboto Mono';
+    color: $color-secondary;
+    border: 1px solid $color-primary;
+    background-color: transparent;
+    &:hover {
+        background-color: $color-bg;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+    }
+}
+
+// -------- //
+
+
 .container {
     font-family: 'Roboto Mono';
-    margin: 16px;
+    margin: 0px;
+    padding: 16px;
 }
 
 .h1 {
     margin: 0px;
+    color: $color-primary;
 }
 
 .header {
@@ -17,7 +45,7 @@
 }
 
 .welcomeText {
-
+ color: $color-secondary;
 }
 
 .logo {
@@ -32,37 +60,48 @@
     width: 40vw;
     margin: 0px 4px;
     font-family: 'Roboto Mono';
+    color: $color-primary;
+    border-radius: 0%;
+    border: 1px solid $color-primary;
+    &:focus {
+        border: 1px solid $color-primary;
+        border-radius: 0%;
+    }
+    &::placeholder {
+        color: $color-placeholder;
+    }
 }
 
-.buttonStart {
-    font-family: 'Roboto Mono';
+.buttonStart,
+.buttonExport {
+    @include button;
 }
 
 .loadbar {
     margin: auto;
     width: 25vw;
     text-align: center;
-    border: 1px solid lightgrey;
-}
-
-.buttonExport {
-    font-family: 'Roboto Mono';
+    border: 1px solid $color-primary;
+    color: $color-primary;
+    background-color: $color-bg;
 }
 
 .table {
     width: 100%;
     margin: 16px 0px;
-    border: 4px solid lightgrey;
     border-collapse: collapse;
+    background-color: $color-bg;
 }
 
 .tableHeading {
     text-align: left;
     padding: 12px;
-    border: 0.5px solid grey;
+    border: 0.5px solid $color-primary;
+    color: $color-primary;
 }
 
 .tableCell {
     padding: 12px;
-    border: 0.5px solid grey;
+    border: 0.5px solid $color-primary;
+    color: $color-secondary;
 }
