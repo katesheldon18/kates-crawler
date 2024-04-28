@@ -6,6 +6,13 @@ export default function Page() {
   const [url, setUrl] = useState("");
   return (
     <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.h1}>KATE'S CRAWLER</h1>
+        <div className={styles.welcomeText}>
+          WELCOME TO MY SEO SPIDER. PLEASE TYPE THE URL BELOW TO BEGIN YOUR
+          CRAWL.
+        </div>
+      </div>
       <div className={styles.startCrawlContainer}>
         <div className={styles.logo}>🤖</div>
         <input
@@ -20,15 +27,9 @@ export default function Page() {
             fetch(`/api/sitemap?url=${url}`);
           }}
         >
-          START CRAWL
+          START
         </button>
-        <div>LOADING...</div>
-      </div>
-      <div className={styles.controlsContainer}>
-        <input
-          className={styles.urlSearch}
-          placeholder="Filter by URL..."
-        ></input>
+        <div className={styles.loadbar}>CRAWLING...</div>
         <button className={styles.buttonExport}>EXPORT</button>
       </div>
       <table className={styles.table}>

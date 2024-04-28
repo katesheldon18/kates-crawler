@@ -5,6 +5,19 @@
 
 .container {
     font-family: 'Roboto Mono';
+    margin: 16px;
+}
+
+.h1 {
+    margin: 0px;
+}
+
+.header {
+    margin: 12px 0px;
+}
+
+.welcomeText {
+
 }
 
 .logo {
@@ -16,29 +29,30 @@
 }
 
 .urlInput {
-
+    width: 40vw;
+    margin: 0px 4px;
+    font-family: 'Roboto Mono';
 }
 
 .buttonStart {
-
+    font-family: 'Roboto Mono';
 }
 
-.controlsContainer {
-
-}
-
-.urlSearch {
-
+.loadbar {
+    margin: auto;
+    width: 25vw;
+    text-align: center;
+    border: 1px solid lightgrey;
 }
 
 .buttonExport {
-
+    font-family: 'Roboto Mono';
 }
 
 .table {
     width: 100%;
     margin: 16px 0px;
-    border: 4px solid pink;
+    border: 4px solid lightgrey;
     border-collapse: collapse;
 }
 
