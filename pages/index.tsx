@@ -4,6 +4,16 @@ import React from "react";
 
 export default function Page() {
   const [url, setUrl] = useState("");
+  const [rows, setRows] = useState<
+    Array<{
+      url: string;
+      title: string;
+      description: string;
+      links: number;
+      status: number;
+    }>
+  >([]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -24,7 +34,21 @@ export default function Page() {
         <button
           className={styles.buttonStart}
           onClick={() => {
-            fetch(`/api/sitemap?url=${url}`);
+            fetch(`/api/sitemap?url=${url}`)
+              .then((res) => res.json())
+              .then((json) => {
+                setRows(
+                  json.map((item) => {
+                    return {
+                      url: item[0],
+                      links: item[1],
+                      status: 200,
+                      title: "title",
+                      description: "description",
+                    };
+                  })
+                );
+              });
           }}
         >
           START
@@ -44,14 +68,26 @@ export default function Page() {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {/* <tr>
             <td className={styles.tableCell}>https://www.example.com</td>
             <td className={styles.tableCell}>200</td>
             <td className={styles.tableCell}>text/html</td>
             <td className={styles.tableCell}>Hello There</td>
             <td className={styles.tableCell}>Welcome to the website.</td>
             <td className={styles.tableCell}>547</td>
-          </tr>
+          </tr> */}
+          {rows.map((row) => {
+            return (
+              <tr>
+                <td className={styles.tableCell}>{row.url}</td>
+                <td className={styles.tableCell}>{row.status}</td>
+                <td className={styles.tableCell}>text/html</td>
+                <td className={styles.tableCell}>{row.title}</td>
+                <td className={styles.tableCell}>{row.description}</td>
+                <td className={styles.tableCell}>{row.links}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

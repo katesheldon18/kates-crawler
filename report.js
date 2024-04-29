@@ -1,4 +1,4 @@
-function sortPages(pages) {
+function getPages(pages) {
   const pagesArr = Object.entries(pages);
   pagesArr.sort((a, b) => {
     return b[1] - a[1];
@@ -6,21 +6,6 @@ function sortPages(pages) {
   return pagesArr
 }
 
-function printReport(pages) {
-  console.log('========')
-  console.log('REPORT')
-  console.log('========')
-  const sortedPages = sortPages(pages)
-  for (const sortedPage of sortedPages) {
-    const url = sortedPage[0]
-    const hits = sortedPage[1]
-    console.log(`URL: ${url}, Internal Links: ${hits}`)
-  }
-  console.log('========')
-  console.log('END OF REPORT')
-  console.log('========')
-}
-
 module.exports = {
-  sortPages, printReport,
+  getPages,
 };
